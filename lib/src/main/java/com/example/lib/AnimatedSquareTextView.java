@@ -1,7 +1,9 @@
 package com.example.lib;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
@@ -9,16 +11,42 @@ import static android.view.View.MeasureSpec.EXACTLY;
 
 public class AnimatedSquareTextView extends AppCompatTextView {
 
+    public static final int TRANSITION_TIME_MILLIS = 500;
+
     public AnimatedSquareTextView(@NonNull Context context) {
         super(context);
+        init(context);
     }
 
     public AnimatedSquareTextView(@NonNull Context context, @NonNull AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public AnimatedSquareTextView(@NonNull Context context, @NonNull AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context);
+    }
+
+    private void init(@NonNull Context context) {
+        final AnimationDrawable bg = (AnimationDrawable) ContextCompat.getDrawable(context, R.drawable.text_bg);
+        bg.setEnterFadeDuration(TRANSITION_TIME_MILLIS);
+        bg.setExitFadeDuration(TRANSITION_TIME_MILLIS);
+        setBackgroundDrawable(bg);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        assertCorrectBackground();
+        ((AnimationDrawable) getBackground()).start();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        assertCorrectBackground();
+        ((AnimationDrawable) getBackground()).stop();
+        super.onDetachedFromWindow();
     }
 
     @Override
@@ -48,6 +76,12 @@ public class AnimatedSquareTextView extends AppCompatTextView {
             int heightSpec = MeasureSpec.makeMeasureSpec(size, MeasureSpec.EXACTLY);
             // setMeasuredDimension() breaks gravity, so we need to call onMeasure() twice =(
             super.onMeasure(widthSpec, heightSpec);
+        }
+    }
+
+    private void assertCorrectBackground() {
+        if (!(getBackground() instanceof AnimationDrawable)) {
+            throw new IllegalStateException("Background was changed to " + getBackground());
         }
     }
 }
