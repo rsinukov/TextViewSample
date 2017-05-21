@@ -15,7 +15,7 @@ import static android.view.View.MeasureSpec.EXACTLY;
 public class AnimatedSquareTextView extends AppCompatTextView {
 
     private static final int DEFAULT_TRANSITION_TIME_MILLIS = 500;
-    private static final int DEFAULT_STATIC_TIME_MILLIS = 500;
+    private static final int DEFAULT_STATIC_TIME_MILLIS = 2000;
     private static final int NO_ITEMS_ID = -1;
 
     public AnimatedSquareTextView(@NonNull Context context) {
@@ -51,8 +51,8 @@ public class AnimatedSquareTextView extends AppCompatTextView {
             final int itemsArrayId = ta.getResourceId(R.styleable.AnimatedSquareTextView_items, NO_ITEMS_ID);
             if (itemsArrayId == NO_ITEMS_ID) {
                 items = new Drawable[]{
-                        ContextCompat.getDrawable(context, R.drawable.gradient_2),
-                        ContextCompat.getDrawable(context, R.drawable.gradient_1)
+                        ContextCompat.getDrawable(context, R.drawable.gradient_1),
+                        ContextCompat.getDrawable(context, R.drawable.gradient_2)
                 };
             } else {
                 final TypedArray itemsTypedArray = context.getResources().obtainTypedArray(itemsArrayId);
