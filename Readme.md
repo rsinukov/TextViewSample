@@ -14,14 +14,14 @@ is animated across 500ms.
 You can configure bg animation via custom attrs:
 
 1. Create array of drawables, ex:
-```
+```xml
     <array name="gradient">
         <item>@drawable/gradient_1</item>
         <item>@drawable/gradient_2</item>
     </array>
 ```
 2. Change animation duration and animated drawables in your layout xml:
-```
+```xml
  <com.example.lib.AnimatedSquareTextView
         android:id="@+id/activity_main_square_text_view"
         android:layout_width="wrap_content"
