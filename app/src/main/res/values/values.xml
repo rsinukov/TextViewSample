@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="gradient">
+        <item>@drawable/gradient_1</item>
+        <item>@drawable/gradient_2</item>
+    </array>
+</resources>
